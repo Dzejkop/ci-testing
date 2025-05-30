@@ -1,6 +1,7 @@
 name: Issue Tracker
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
 

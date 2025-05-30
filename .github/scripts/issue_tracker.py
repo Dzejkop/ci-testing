@@ -183,15 +183,11 @@ def render(issue):
     issue = issue.copy()
     issue.pop("open-issue-index", None)
     issue["json"] = json.dumps(issue)
-    if issue["author-mail"] in users:
-        issue["github-handle"] = "@" + users[issue["author-mail"]].login
-    else:
-        issue["github-handle"] = "unrecognized user"
 
     if issue["author-mail"] in users:
-        issue["user-mention"] = "@" + users[issue["author-mail"]].login + " wrote in "
+        issue["user-mention"] = "@" + users[issue["author-mail"]].login + " wrote in"
     else:
-        issue["user-mention"] = "added in "
+        issue["user-mention"] = "added in"
 
     issue["author-time-pretty"] = date.fromtimestamp(issue["author-time"]).isoformat()
     issue["commit-hash-short"] = issue["commit-hash"][0:7]
@@ -200,7 +196,7 @@ def render(issue):
     issue_obj = dict(
         title="{head}".format(**issue),
         body="""
-*On {author-time-pretty} @{github-handle} wrote in [`{commit-hash-short}`](https://github.com/{repo}/commit/{commit-hash}) “{summary}”:*
+*On {author-time-pretty} {user-mention} [`{commit-hash-short}`](https://github.com/{repo}/commit/{commit-hash}) “{summary}”:*
 
 {issue}
 
